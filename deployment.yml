@@ -19,6 +19,7 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 5000
+        
 ---
 apiVersion: v1
 kind: Service
@@ -32,3 +33,14 @@ spec:
   ports:
   - port: 5000
     targetPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: ec2-34-254-171-223.eu-west-1.compute.amazonaws.com
+  ports:
+    - port: 3306
