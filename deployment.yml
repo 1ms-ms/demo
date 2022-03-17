@@ -1,0 +1,54 @@
+---      
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-api
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      bb: web
+  template:
+    metadata:
+      labels:
+        bb: web
+    spec:
+      containers:
+      - name: flask-container
+        image: flask_app:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 5000
+        volumeMounts:
+        - name: myconfigmap
+          mountPath: "/app/my.conf1"
+          readOnly: true
+      volumes:
+      - name: myconfigmap 
+        configMap:
+          name: create-conf  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: network-connection
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    bb: web
+  ports:
+  - port: 5000
+    targetPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: ec2-34-254-171-223.eu-west-1.compute.amazonaws.com
+  ports:
+    - port: 3306
