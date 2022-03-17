@@ -41,6 +41,6 @@ metadata:
   namespace: default
 spec:
   type: ExternalName
-  externalName: ec2-34-254-171-223.eu-west-1.compute.amazonaws.com
+  externalName: 
   ports:
     - port: 3306
