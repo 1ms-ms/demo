@@ -16,13 +16,13 @@ spec:
     spec:
       containers:
       - name: flask-container
-        image: flask_app:v1
+        image: flask_app:v3
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 5000
         volumeMounts:
         - name: myconfigmap
-          mountPath: "/app/my.conf1"
+          mountPath: "/app/my.conf"
           readOnly: true
       volumes:
       - name: myconfigmap 
@@ -49,6 +49,6 @@ metadata:
   namespace: default
 spec:
   type: ExternalName
-  externalName: ec2-34-254-171-223.eu-west-1.compute.amazonaws.com
+  externalName: 
   ports:
     - port: 3306
