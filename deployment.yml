@@ -15,11 +15,19 @@ spec:
     spec:
       containers:
       - name: flask-container
-        image: flask_app
+        image: flask_app:v3
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 5000
-        
+        volumeMounts:
+        - name: myconfigmap
+          mountPath: "/app/my.conf"
+          readOnly: true
+      volumes:
+      - name: myconfigmap 
+        configMap:
+          name: create-conf  
+
 ---
 apiVersion: v1
 kind: Service
