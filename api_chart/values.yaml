@@ -8,3 +8,7 @@ app:
     port: 5000
     volume: 
       name: myconfigmap
+      mountPath: "/app/my.conf"
+      readOnly: true
+  configMap: 
+    name: create-conf
