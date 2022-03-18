@@ -1,0 +1,10 @@
+app: 
+  name: flask-api
+  replicaCount: 1
+  container: 
+    name: flask-container
+    image: flask_app:v3
+    imagePullPolicy: IfNotPresent
+    port: 5000
+    volume: 
+      name: myconfigmap
