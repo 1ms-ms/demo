@@ -1,15 +1,24 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "api_chart.fullname" . }}
-  labels:
-    {{- include "api_chart.labels" . | nindent 4 }}
+  name: {{ .Values.service.name }}
+  namespace: default
 spec:
   type: {{ .Values.service.type }}
-  ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
   selector:
-    {{- include "api_chart.selectorLabels" . | nindent 4 }}
+    app: {{ .Values.app.name }}
+  ports:
+  - port: {{ .Values.app.container.port }}
+    targetPort: {{ .Values.app.container.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.servicedb.name }}
+  namespace: default
+spec:
+  type: {{ .Values.servicedb.type }}
+  externalName: {{ .Values.servicedb.dns }}
+  ports:
+    - port: {{ .Values.servicedb.port }}

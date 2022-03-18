@@ -21,11 +21,9 @@ spec:
         ports:
           - containerPort: {{ .Values.app.container.port }}
         volumeMounts: 
-        {{ - range .Values.app.container.volume }}
-        - name: {{ .name }}
-          mountPath: {{ .mountPath }}
-          readOnly: {{ .readOnly}}
-        {{- end}}  
+        - name: {{ .Values.app.container.volume.name }}
+          mountPath: {{ .Values.app.container.volume.mountPath }}
+          readOnly: {{ .Values.app.container.volume.readOnly}}
       volumes:
       - name: {{ .Values.app.container.volume.name }}
         configMap:

@@ -12,3 +12,13 @@ app:
       readOnly: true
   configMap: 
     name: create-conf
+
+service:
+  name: network-connection
+  type: NodePort
+
+servicedb:
+  name: db
+  type: ExternalName
+  dns: 
+  port: 3306
