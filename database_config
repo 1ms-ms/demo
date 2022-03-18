@@ -1,0 +1,4 @@
+CREATE DATABASE testdb;
+CREATE TABLE note ( id int NOT NULL AUTO_INCREMENT, content varchar(255) NOT NULL, PRIMARY KEY(id));
+CREATE USER 'testuser'@'%' IDENTIFIED BY 'testpass';
+GRANT ALL PRIVILEGES ON * . * TO 'testuser'@'%';

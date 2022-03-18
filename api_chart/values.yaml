@@ -1,0 +1,24 @@
+app: 
+  name: flask-api
+  replicaCount: 1
+  container: 
+    name: flask-container
+    image: flask_app:v3
+    imagePullPolicy: IfNotPresent
+    port: 5000
+    volume: 
+      name: myconfigmap
+      mountPath: "/app/my.conf"
+      readOnly: true
+  configMap: 
+    name: create-conf
+
+service:
+  name: network-connection
+  type: NodePort
+
+servicedb:
+  name: db
+  type: ExternalName
+  dns: <put DB public DNS here>
+  port: 3306

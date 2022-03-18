@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: create-conf
+data:
+    my.conf:  |
+      [connector_python]
+      user = testuser
+      host = db.default.svc.cluster.local
+      password = testpass
+      database = testdb
