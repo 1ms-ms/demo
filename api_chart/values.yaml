@@ -20,5 +20,5 @@ service:
 servicedb:
   name: db
   type: ExternalName
-  dns: 
+  dns: <put DB public DNS here>
   port: 3306
