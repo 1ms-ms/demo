@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: flask-container
-        image: flask_app:v3
+        image: 537646401150.dkr.ecr.eu-west-1.amazonaws.com/flask_repo:latest
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 5000
@@ -52,3 +52,23 @@ spec:
   externalName: 
   ports:
     - port: 3306
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flask-ingress
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: network-connection
+              port:
+                number: 5000
